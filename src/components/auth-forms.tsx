@@ -5,19 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/app/actions/auth";
 import { createClient } from "@/lib/supabase/client";
-import { ErrorBanner, Field, inputClassName } from "@/components/ui";
+import { ErrorBanner, Field, inputClassName, mutedClass, primaryButtonClass, textLinkClass } from "@/components/ui";
 
 export function CheckEmailNotice() {
   return (
     <div className="space-y-4 text-center">
-      <h2 className="text-xl font-semibold text-slate-900">Check your email</h2>
-      <p className="text-sm text-slate-600">
+      <h2 className="text-xl font-semibold text-[#1c1917]">Check your email</h2>
+      <p className={mutedClass}>
         We sent a confirmation link. Open that link, then log in with the same password.
         There is no code to type on this page.
       </p>
       <Link
         href="/login"
-        className="inline-flex rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+        className={primaryButtonClass()}
       >
         Go to log in
       </Link>
@@ -68,13 +68,13 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-70"
+        className={primaryButtonClass("w-full")}
       >
         {loading ? "Signing in..." : "Log in"}
       </button>
-      <p className="text-center text-sm text-slate-600">
+      <p className={`text-center ${mutedClass}`}>
         New here?{" "}
-        <Link className="font-medium text-teal-800 underline" href="/signup">
+        <Link className={textLinkClass()} href="/signup">
           Create an account
         </Link>
       </p>
@@ -133,13 +133,13 @@ export function SignUpForm({ initialError }: { initialError?: string }) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800 disabled:opacity-70"
+        className={primaryButtonClass("w-full")}
       >
         {loading ? "Creating account..." : "Sign up"}
       </button>
-      <p className="text-center text-sm text-slate-600">
+      <p className={`text-center ${mutedClass}`}>
         Already have an account?{" "}
-        <Link className="font-medium text-teal-800 underline" href="/login">
+        <Link className={textLinkClass()} href="/login">
           Log in
         </Link>
       </p>

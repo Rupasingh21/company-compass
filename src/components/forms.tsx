@@ -4,7 +4,7 @@ import {
   researchStatuses,
 } from "@/lib/labels";
 import type { Company } from "@/lib/types";
-import { Field, inputClassName } from "@/components/ui";
+import { Field, inputClassName, primaryButtonClass } from "@/components/ui";
 
 const areaClass = `${inputClassName()} min-h-24`;
 
@@ -111,7 +111,7 @@ export function CompanyForm({
       </Field>
       <button
         type="submit"
-        className="rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+        className={primaryButtonClass()}
       >
         {submitLabel}
       </button>
@@ -245,7 +245,7 @@ export function ContactForm({
       </Field>
       <button
         type="submit"
-        className="rounded-full bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+        className={primaryButtonClass()}
       >
         {submitLabel}
       </button>

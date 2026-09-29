@@ -1,7 +1,7 @@
 import { createContact } from "@/app/actions/contacts";
 import { requireUser } from "@/lib/auth";
 import { ContactForm } from "@/components/forms";
-import { ErrorBanner } from "@/components/ui";
+import { ErrorBanner, PageHeader, panelClass } from "@/components/ui";
 
 export default async function NewContactPage({
   searchParams,
@@ -14,14 +14,12 @@ export default async function NewContactPage({
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Add a contact</h1>
-        <p className="mt-2 text-slate-600">
-          Save enough to remember a thoughtful follow-up. You will send the message yourself.
-        </p>
-      </div>
+      <PageHeader
+        title="Add a contact"
+        description="Save enough to remember a thoughtful follow-up. You will send the message yourself."
+      />
       <ErrorBanner message={error} />
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+      <div className={panelClass}>
         <ContactForm
           action={createContact}
           submitLabel="Save contact"

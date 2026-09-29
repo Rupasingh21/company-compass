@@ -1,8 +1,9 @@
 import { CheckEmailNotice } from "@/components/auth-forms";
+import { panelClass } from "@/components/ui";
 
 export default function CheckEmailPage() {
   return (
-    <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className={`mx-auto max-w-md ${panelClass}`}>
       <CheckEmailNotice />
     </div>
   );

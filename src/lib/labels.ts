@@ -17,9 +17,50 @@ export const alumOptions = [
   { value: "no", label: "No" },
 ] as const;
 
+export const jobStatuses = [
+  { value: "to_research", label: "To research" },
+  { value: "open", label: "Open" },
+  { value: "applied", label: "Applied" },
+  { value: "assessment", label: "Assessment" },
+  { value: "interviewing", label: "Interviewing" },
+  { value: "offer", label: "Offer" },
+  { value: "rejected", label: "Rejected" },
+  { value: "withdrawn", label: "Withdrawn" },
+  { value: "closed", label: "Closed" },
+] as const;
+
+export const applicationStatuses = [
+  "applied",
+  "assessment",
+  "interviewing",
+  "offer",
+  "rejected",
+  "withdrawn",
+] as const;
+
+export const workArrangements = [
+  { value: "not_sure", label: "Not sure" },
+  { value: "onsite", label: "On-site" },
+  { value: "hybrid", label: "Hybrid" },
+  { value: "remote", label: "Remote" },
+] as const;
+
+export const priorities = [
+  { value: "low", label: "Low" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "High" },
+] as const;
+
 export type ResearchStatus = (typeof researchStatuses)[number]["value"];
 export type OutreachStatus = (typeof outreachStatuses)[number]["value"];
 export type AlumOption = (typeof alumOptions)[number]["value"];
+export type JobStatus = (typeof jobStatuses)[number]["value"];
+export type WorkArrangement = (typeof workArrangements)[number]["value"];
+export type Priority = (typeof priorities)[number]["value"];
+
+export function isApplicationStatus(status: string) {
+  return (applicationStatuses as readonly string[]).includes(status);
+}
 
 export function labelFor(
   options: readonly { value: string; label: string }[],

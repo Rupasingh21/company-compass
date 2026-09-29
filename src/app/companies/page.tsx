@@ -2,7 +2,19 @@ import Link from "next/link";
 import { requireUser } from "@/lib/auth";
 import { labelFor, researchStatuses } from "@/lib/labels";
 import type { Company } from "@/lib/types";
-import { EmptyState, ErrorBanner, inputClassName } from "@/components/ui";
+import {
+  EmptyState,
+  ErrorBanner,
+  PageHeader,
+  StatusBadge,
+  inputClassName,
+  listCardClass,
+  mutedClass,
+  panelClass,
+  primaryButtonClass,
+  secondaryButtonClass,
+  textLinkClass,
+} from "@/components/ui";
 
 export default async function CompaniesPage({
   searchParams,
@@ -23,37 +35,40 @@ export default async function CompaniesPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Companies</h1>
-          <p className="mt-2 text-slate-600">Your target list. Search by name or filter by research status.</p>
-        </div>
-        <Link
-          href="/companies/new"
-          className="rounded-full bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
-        >
-          Add company
-        </Link>
-      </div>
+      <PageHeader
+        title="Companies"
+        description="Your target list. Search by name or filter by research status."
+        action={
+          <Link href="/companies/new" className={primaryButtonClass()}>
+            Add company
+          </Link>
+        }
+      />
       <ErrorBanner message={error} />
-      <form className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:flex-row">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="Search by company name"
-          className={inputClassName()}
-        />
-        <select name="status" defaultValue={status} className={inputClassName()}>
-          <option value="all">All statuses</option>
-          {researchStatuses.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+      <form className={`${panelClass} flex flex-col gap-3 sm:flex-row sm:items-end`}>
+        <label className="block min-w-0 flex-1 space-y-1.5">
+          <span className="text-sm font-medium">Search</span>
+          <input
+            name="q"
+            defaultValue={q}
+            placeholder="Company name"
+            className={inputClassName()}
+          />
+        </label>
+        <label className="block min-w-0 space-y-1.5 sm:w-56">
+          <span className="text-sm font-medium">Research status</span>
+          <select name="status" defaultValue={status} className={inputClassName()}>
+            <option value="all">All statuses</option>
+            {researchStatuses.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
         <button
           type="submit"
-          className="rounded-full bg-slate-900 px-4 py-2.5 text-sm font-medium text-white"
+          className={secondaryButtonClass("w-full sm:w-auto")}
         >
           Filter
         </button>
@@ -72,23 +87,28 @@ export default async function CompaniesPage({
       ) : (
         <ul className="space-y-3">
           {companies.map((company) => (
-            <li key={company.id} className="rounded-2xl border border-slate-200 bg-white p-4">
+            <li key={company.id} className={listCardClass}>
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
                   <Link href={`/companies/${company.id}`} className="text-lg font-semibold hover:underline">
                     {company.name}
                   </Link>
-                  <p className="text-sm text-slate-500">
-                    {labelFor(researchStatuses, company.research_status)}
-                    {company.industry ? ` · ${company.industry}` : ""}
-                  </p>
+                  {company.industry ? <p className={`mt-1 ${mutedClass}`}>{company.industry}</p> : null}
                 </div>
-                <Link className="text-sm text-teal-800 hover:underline" href={`/companies/${company.id}/edit`}>
-                  Edit
-                </Link>
+                <div className="flex flex-wrap items-center gap-3">
+                  <StatusBadge
+                    value={company.research_status}
+                    label={labelFor(researchStatuses, company.research_status)}
+                  />
+                  <Link className={`text-sm ${textLinkClass()}`} href={`/companies/${company.id}/edit`}>
+                    Edit
+                  </Link>
+                </div>
               </div>
               {company.next_action ? (
-                <p className="mt-2 text-sm text-slate-600">Next: {company.next_action}</p>
+                <p className="mt-3 rounded-xl bg-[#eef5ef] px-3 py-2 text-sm text-[#1d3d2e]">
+                  Next: {company.next_action}
+                </p>
               ) : null}
             </li>
           ))}

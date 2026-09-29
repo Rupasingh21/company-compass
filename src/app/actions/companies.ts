@@ -107,5 +107,6 @@ export async function deleteCompany(formData: FormData) {
   revalidatePath("/overview");
   revalidatePath("/companies");
   revalidatePath("/contacts");
+  revalidatePath("/jobs");
   redirect("/companies");
 }
